@@ -25,7 +25,6 @@ public class Perusahaan {
     private String desa;
     private String kodeDes;
     private String email;
-    
     public Validator validasi;
 
     public Perusahaan() {

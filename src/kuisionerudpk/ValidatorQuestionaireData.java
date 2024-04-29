@@ -9,10 +9,10 @@ package kuisionerudpk;
  * @author U53R
  */
 public class ValidatorQuestionaireData implements Validator {
-    private QuestionaireData QuestionaireData; // Objek QuestionaireData yang akan divalidasi
+    private QuestionaireData questionaireData; // Objek QuestionaireData yang akan divalidasi
 
-    public ValidatorQuestionaireData(QuestionaireData QuestionaireData) {
-        this.QuestionaireData = QuestionaireData;
+    public ValidatorQuestionaireData(QuestionaireData questionaireData) {
+        this.questionaireData = questionaireData;
     }
 
     @Override
@@ -21,61 +21,61 @@ public class ValidatorQuestionaireData implements Validator {
         // Anda dapat menyesuaikan validasi sesuai kebutuhan
         
         // Contoh validasi untuk status usaha
-        if (!isValidString(QuestionaireData.getStatusUsaha())) {
-            throw new ValidatorException("Status usaha tidak boleh kosong");
+        if (!(questionaireData.getStatusUsaha().matches("[12345]"))) {
+            throw new ValidatorException("Status usaha harus antara 1-5");
         }
+        
+        if (questionaireData.getStatusUsaha().equals("1")|| questionaireData.getStatusUsaha().equals("2")) {
+            // Contoh validasi untuk gred
+            if (!(questionaireData.getGred().matches("[12345679]"))) {
+                throw new ValidatorException("Gred harus salah satu dari 1,2,3,4,5,6,7, dan 9");
+            }
 
-        // Contoh validasi untuk gred
-        if (!isValidString(QuestionaireData.getGred())) {
-            throw new ValidatorException("Gred tidak boleh kosong");
-        }
+            // Validasi untuk atribut badan usaha
+            if (!(questionaireData.getBadanUsaha().matches("[1234567]"))) {
+                throw new ValidatorException("Badan usaha harus antara 1-7");
+            }
 
-        // Validasi untuk atribut badan usaha
-        if (!isValidString(QuestionaireData.getBadanUsaha())) {
-            throw new ValidatorException("Badan usaha tidak boleh kosong");
-        }
+            // Validasi untuk atribut pekerjaan utama
+            if (!isValidString(questionaireData.getPekerjaanUtama()) || !questionaireData.getPekerjaanUtama().matches("[a-zA-Z]+")) {
+                throw new ValidatorException("Pekerjaan utama tidak boleh kosong");
+            }
 
-        // Validasi untuk atribut pekerjaan utama
-        if (!isValidString(QuestionaireData.getPekerjaanUtama())) {
-            throw new ValidatorException("Pekerjaan utama tidak boleh kosong");
-        }
+            // Validasi untuk atribut bidang pekerjaan utama
+            if (!(questionaireData.getBidangPekerjaanUtama().matches("[123]"))) {
+                throw new ValidatorException("Bidang pekerjaan utama harus antara 1-3");
+            }
 
-        // Validasi untuk atribut bidang pekerjaan utama
-        if (!isValidString(QuestionaireData.getBidangPekerjaanUtama())) {
-            throw new ValidatorException("Bidang pekerjaan utama tidak boleh kosong");
-        }
+            // Validasi untuk atribut tempat usaha
+            if (!(questionaireData.getTempatUsaha().matches("[1234]"))) {
+                throw new ValidatorException("Tempat usaha harus antara 1-4");
+            }
 
-        // Validasi untuk atribut tempat usaha
-        if (!isValidString(QuestionaireData.getTempatUsaha())) {
-            throw new ValidatorException("Tempat usaha tidak boleh kosong");
-        }
+            // Validasi untuk atribut banyak pekerja tetap
+            if (!(questionaireData.getBanyakPekerjaTetap().getTotal() <= 0)){
+                throw new ValidatorException("Banyak pekerja tetap harus lebih besar dari 0");
+            }
 
-        // Validasi untuk atribut banyak pekerja tetap
-        if (QuestionaireData.getBanyakPekerjaTetap() <= 0) {
-            throw new ValidatorException("Banyak pekerja tetap harus lebih besar dari 0");
-        }
+            // Validasi untuk atribut contact person
+            if (questionaireData.getContactPerson() == null) {
+                throw new ValidatorException("Contact person tidak boleh kosong");
+            }
 
-        // Validasi untuk atribut contact person
-        if (QuestionaireData.getContactPerson() == null) {
-            throw new ValidatorException("Contact person tidak boleh kosong");
-        }
+            // Validasi untuk atribut pencacah
+            if (questionaireData.getPencacah() == null) {
+                throw new ValidatorException("Pencacah tidak boleh kosong");
+            }
 
-        // Validasi untuk atribut pencacah
-        if (QuestionaireData.getPencacah() == null) {
-            throw new ValidatorException("Pencacah tidak boleh kosong");
-        }
-
-        // Validasi untuk atribut pengawas
-        if (QuestionaireData.getPengawas() == null) {
-            throw new ValidatorException("Pengawas tidak boleh kosong");
+            // Validasi untuk atribut pengawas
+            if (questionaireData.getPengawas() == null) {
+                throw new ValidatorException("Pengawas tidak boleh kosong");
         }
 
         // Validasi untuk atribut catatan
-        if (!isValidString(QuestionaireData.getCatatan())) {
-            throw new ValidatorException("Catatan tidak boleh kosong");
-        }
 
         // Jika semua validasi berhasil, kembalikan true
+        }
+
         return true;
     }
 
@@ -93,34 +93,37 @@ public class ValidatorQuestionaireData implements Validator {
     @Override
     public void print() {
         // Mencetak informasi QuestionaireData
-        System.out.println("Status Usaha: " + QuestionaireData.getStatusUsaha());
-        System.out.println("Gred: " + QuestionaireData.getGred());
-        System.out.println("Badan Usaha: " + QuestionaireData.getBadanUsaha());
-        System.out.println("Pekerjaan Utama: " + QuestionaireData.getPekerjaanUtama());
-        System.out.println("Bidang Pekerjaan Utama: " + QuestionaireData.getBidangPekerjaanUtama());
-        System.out.println("Tempat Usaha: " + QuestionaireData.getTempatUsaha());
-        System.out.println("Banyak Pekerja Tetap: " + QuestionaireData.getBanyakPekerjaTetap());
-        System.out.println("Contact Person: " + QuestionaireData.getContactPerson());
-        System.out.println("Pencacah: " + QuestionaireData.getPencacah());
-        System.out.println("Pengawas: " + QuestionaireData.getPengawas());
-        System.out.println("Catatan: " + QuestionaireData.getCatatan());
+        System.out.println("Status Usaha: " + questionaireData.getStatusUsaha());
+        if (questionaireData.getStatusUsaha().equals("1") || questionaireData.getStatusUsaha().equals("2"))
+        {
+            System.out.println("Gred: " + questionaireData.getGred());
+            System.out.println("Badan Usaha: " + questionaireData.getBadanUsaha());
+            System.out.println("Pekerjaan Utama: " + questionaireData.getPekerjaanUtama());
+            System.out.println("Bidang Pekerjaan Utama: " + questionaireData.getBidangPekerjaanUtama());
+            System.out.println("Tempat Usaha: " + questionaireData.getTempatUsaha());
+            System.out.println("Banyak Pekerja Tetap: " + questionaireData.getBanyakPekerjaTetap());
+            System.out.println("Contact Person: " + questionaireData.getContactPerson());
+            System.out.println("Pencacah: " + questionaireData.getPencacah());
+            System.out.println("Pengawas: " + questionaireData.getPengawas());
+            System.out.println("Catatan: " + questionaireData.getCatatan());
         // Cetak atribut lainnya sesuai kebutuhan
+        }
     }
 
     @Override
     public void reset() {
         // Mereset semua atribut dalam objek QuestionaireData
-        QuestionaireData.setStatusUsaha("");
-        QuestionaireData.setGred("");
-        QuestionaireData.setBadanUsaha("");
-        QuestionaireData.setPekerjaanUtama("");
-        QuestionaireData.setBidangPekerjaanUtama("");
-        QuestionaireData.setTempatUsaha("");
-        QuestionaireData.setBanyakPekerjaTetap(0);
-        QuestionaireData.setContactPerson(null);
-        QuestionaireData.setPencacah(null);
-        QuestionaireData.setPengawas(null);
-        QuestionaireData.setCatatan("");
+        questionaireData.setStatusUsaha("0");
+        questionaireData.setGred("0");
+        questionaireData.setBadanUsaha("0");
+        questionaireData.setPekerjaanUtama("");
+        questionaireData.setBidangPekerjaanUtama("0");
+        questionaireData.setTempatUsaha("0");
+        questionaireData.setBanyakPekerjaTetap(null);
+        questionaireData.setContactPerson(null);
+        questionaireData.setPencacah(null);
+        questionaireData.setPengawas(null);
+        questionaireData.setCatatan("");
         // Reset atribut lainnya sesuai kebutuhan
     }
 }

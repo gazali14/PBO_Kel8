@@ -10,7 +10,7 @@ package kuisionerudpk;
  */
 public class KIP {
     private String kodeKIP;
-    private Validator validasi;
+    Validator validasi;
 
     public KIP() {
         validasi = new ValidatorKIP(this);
