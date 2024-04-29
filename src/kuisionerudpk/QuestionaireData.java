@@ -25,6 +25,7 @@ public class QuestionaireData {
     private Validator validasi;
 
     public QuestionaireData() {
+        validasi = new ValidatorQuestionaireData(this);
     }
 
     // Getter dan setter untuk semua atribut
@@ -134,10 +135,6 @@ public class QuestionaireData {
 
     public Validator getValidasi() {
         return validasi;
-    }
-
-    public void setValidasi(Validator validasi) {
-        this.validasi = validasi;
     }
 }
 

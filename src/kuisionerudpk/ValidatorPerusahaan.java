@@ -26,8 +26,8 @@ public class ValidatorPerusahaan implements Validator {
         }
         
         // Validasi untuk nama pengusaha
-        if (!isValidString(perusahaan.getNamaPengusaha())) {
-            throw new ValidatorException("Nama pengusaha tidak boleh kosong");
+        if (!isValidString(perusahaan.getNamaPengusaha()) || !perusahaan.getNamaPengusaha().matches("[a-zA-Z ]+")) {
+            throw new ValidatorException("Nama pengusaha tidak boleh kosong atau berisi angka");
         }
         
         // Validasi untuk alamat
