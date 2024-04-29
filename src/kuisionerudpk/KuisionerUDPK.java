@@ -13,17 +13,6 @@ import java.util.ArrayList;
  */
 public class KuisionerUDPK {
     private static ArrayList<QuestionaireData> sheets = new ArrayList<>();
-    /**
-     * @param args the command line arguments
-     */
-    
-        /**
-     * Merupakan method untuk membersihkan Scanner setelah newline
-     * @param scanner Scanner class yang digunakan
-     */
-//    private static void ClearInputBuffer(Scanner scanner) {
-//        scanner.skip(".*\n");
-//    }
     
     public static void main(String[] args) {
         // TODO code application logic here
