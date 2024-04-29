@@ -8,12 +8,15 @@ package kuisionerudpk;
  *
  * @author U53R
  */
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public abstract class Person {
     private String nama;
     private String jabatan;
-    private Date tanggal;
+    private String strDate; 
+    private LocalDate tanggal;
     private Validator validasi;
 
     public Person() {
@@ -36,14 +39,27 @@ public abstract class Person {
         this.jabatan = jabatan;
     }
 
-    public Date getTanggal() {
+    public LocalDate getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(Date tanggal) {
-        this.tanggal = tanggal;
+    public void setTanggal(String strDate) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(strDate, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Format tanggal tidak valid");
+        }
     }
 
+    public String getStrDate() {
+        return strDate;
+    }
+
+    public void setStrDate(String strDate) {
+        this.strDate = strDate;
+    }
+    
     public Validator getValidasi() {
         return validasi;
     }
@@ -51,21 +67,36 @@ public abstract class Person {
     public void setValidasi(Validator validasi) {
         this.validasi = validasi;
     }
+
+    @Override
+    public abstract String toString();
 }
 
 class Pencacah extends Person{
     public Pencacah() {
+    }
+
+    @Override
+    public String toString() {
+        return "Pencacah["+this.getNama()+","+this.getJabatan()+"]";
     }
 }
 
 class Pengawas extends Person{
     public Pengawas() {
     }
-    
+    @Override
+    public String toString() {
+        return "Pengawas["+this.getNama()+","+this.getJabatan()+"]";
+    }
 }
 
 class ContactPerson extends Person{
     public ContactPerson() {
+    }
+    @Override
+    public String toString() {
+        return "ContactPerson["+this.getNama()+","+this.getJabatan()+"]";
     }
     
 }

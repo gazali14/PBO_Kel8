@@ -17,14 +17,15 @@ public class QuestionaireData {
     private String pekerjaanUtama;
     private String bidangPekerjaanUtama;
     private String tempatUsaha;
-    private int banyakPekerjaTetap;
+    private BanyakPekerja banyakPekerjaTetap;
     private ContactPerson contactPerson;
     private Pencacah pencacah;
     private Pengawas pengawas;
     private String catatan;
-    private Validator validasi;
+    public Validator validasi;
 
     public QuestionaireData() {
+        validasi = new ValidatorQuestionaireData(this);
     }
 
     // Getter dan setter untuk semua atribut
@@ -51,7 +52,7 @@ public class QuestionaireData {
     public void setStatusUsaha(String statusUsaha) {
         this.statusUsaha = statusUsaha;
     }
-
+    
     public String getGred() {
         return gred;
     }
@@ -92,11 +93,11 @@ public class QuestionaireData {
         this.tempatUsaha = tempatUsaha;
     }
 
-    public int getBanyakPekerjaTetap() {
+    public BanyakPekerja getBanyakPekerjaTetap() {
         return banyakPekerjaTetap;
     }
 
-    public void setBanyakPekerjaTetap(int banyakPekerjaTetap) {
+    public void setBanyakPekerjaTetap(BanyakPekerja banyakPekerjaTetap) {
         this.banyakPekerjaTetap = banyakPekerjaTetap;
     }
 
@@ -134,10 +135,6 @@ public class QuestionaireData {
 
     public Validator getValidasi() {
         return validasi;
-    }
-
-    public void setValidasi(Validator validasi) {
-        this.validasi = validasi;
     }
 }
 
