@@ -9,25 +9,26 @@ package kuisionerudpk;
  * @author U53R
  */
 public class Perusahaan {
-    public String namaPerusahaan;
-    public String namaPengusaha;
-    public String alamat;
-    public String kodePos;
-    public String telepon;
-    public String fax;
-    public String noHP;
-    public String provinsi;
-    public String kodeProv;
-    public String kabupaten;
-    public String kodeKab;
-    public String kecamatan;
-    public String kodeKec;
-    public String desa;
-    public String kodeDes;
-    public String email;
+    private String namaPerusahaan;
+    private String namaPengusaha;
+    private String alamat;
+    private String kodePos;
+    private String telepon;
+    private String fax;
+    private String noHP;
+    private String provinsi;
+    private String kodeProv;
+    private String kabupaten;
+    private String kodeKab;
+    private String kecamatan;
+    private String kodeKec;
+    private String desa;
+    private String kodeDes;
+    private String email;
     public Validator validasi;
 
     public Perusahaan() {
+        validasi = new ValidatorPerusahaan(this);
     }
 
     public String getNamaPerusahaan() {
@@ -158,14 +159,7 @@ public class Perusahaan {
         this.email = email;
     }
 
-    public Validator getValidasi() {
-        return validasi;
+    public boolean getValidasi() throws ValidatorException{
+        return validasi.validate();
     }
-
-    public void setValidasi(Validator validasi) {
-        this.validasi = validasi;
-    }
-    
-    
-    
 }

@@ -19,15 +19,18 @@ public class ValidatorPerson implements Validator {
     public boolean validate() throws ValidatorException {
         // Lakukan validasi untuk semua atribut Person
         // Validasi untuk nama
-        if (!isValidString(person.getNama())) {
+        if (!isValidString(person.getNama())|| !person.getNama().matches("[a-zA-Z]+")) {
             throw new ValidatorException("Nama tidak boleh kosong");
         }
 
         // Validasi untuk jabatan
-        if (!isValidString(person.getJabatan())) {
+        if (!isValidString(person.getJabatan())|| !person.getJabatan().matches("[a-zA-Z]+")) {
             throw new ValidatorException("Jabatan tidak boleh kosong");
         }
 
+        if (!isValidString(person.getStrDate()) || !person.getStrDate().matches("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(200[0-9]|201[0-9]|202[0-5])$")) {
+            throw new ValidatorException("Tanggal harus dalam format dd-mm-yyyy");
+        }
         // Jika semua validasi berhasil, kembalikan true
         return true;
     }

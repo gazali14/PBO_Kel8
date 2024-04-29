@@ -10,9 +10,10 @@ package kuisionerudpk;
  */
 public class KIP {
     private String kodeKIP;
-    private Validator validasi;
+    Validator validasi;
 
     public KIP() {
+        validasi = new ValidatorKIP(this);
     }
 
     // Getter dan setter untuk semua atribut
@@ -22,14 +23,11 @@ public class KIP {
 
     public void setKodeKIP(String kodeKIP) {
         this.kodeKIP = kodeKIP;
+        
     }
 
-    public Validator getValidasi() {
-        return validasi;
-    }
-
-    public void setValidasi(Validator validasi) {
-        this.validasi = validasi;
+    public boolean getValidasi() throws ValidatorException {
+        return validasi.validate();
     }
 }
 
