@@ -6,7 +6,7 @@ Sejak tahun 2009, Badan Pusat Statistik (BPS) melakukan kegiatan Updating Direkt
 Secara garis besar, tujuan dari pengutipan Direktori Perusahaan Konstruksi 2014 adalah membentuk Kerangka Sampel Perusahaan/Usaha Konstruksi yang up-to-date, yang digunakan untuk pengambilan sampel Survei Perusahaan Konstruksi Tahunan (SKTH), Survei Perusahaan Konstruksi Triwulanan (SKTR), dan Survei Usaha Konstruksi Perorangan (SKP).
 
 ### Penulis Source Code
-#### Kelompok 8
+#### Kelompok 8 (2KS2)
 1. Briel Sevtriobragi Sihaloho	(222212539)
 2. Dewi Nurihandayani		(222212564)
 3. Fickry Atmayoga Wienaldi 	(222212610)
