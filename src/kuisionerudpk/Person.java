@@ -17,9 +17,10 @@ public abstract class Person {
     private String jabatan;
     private String strDate; 
     private LocalDate tanggal;
-    private Validator validasi;
+    Validator validasi;
 
     public Person() {
+        validasi = new ValidatorPerson(this);
     }
 
     // Getter dan setter untuk semua atribut
@@ -47,6 +48,7 @@ public abstract class Person {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate date = LocalDate.parse(strDate, formatter);
+            this.strDate = strDate;
         } catch (DateTimeParseException e) {
             System.out.println("Format tanggal tidak valid");
         }

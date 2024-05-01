@@ -54,6 +54,7 @@ public class KuisionerUDPK {
                         tmpKodeKIP = in.nextLine();
                         kip.setKodeKIP(tmpKodeKIP);
                         kip.getValidasi();
+                        qd.setKip(kip);
                         kipValid = true;
                     } catch (ValidatorException e) {
                         System.out.println(e.getMessage());
@@ -116,7 +117,7 @@ public class KuisionerUDPK {
                             System.out.print("Kabupaten/Kota                         : ");
                             tmpKab = in.nextLine();
 
-                            System.out.print("Kode Kabupaten/Kota  (Berisi 2 Digit)   : ");
+                            System.out.print("Kode Kabupaten/Kota  (Berisi 2 Digit)  : ");
                             tmpKodeKab = in.nextLine();
 
                             System.out.print("Kecamatan                              : ");
@@ -151,6 +152,7 @@ public class KuisionerUDPK {
                             perusahaan.setKodeDes(tmpKodeDes);
                             perusahaan.setEmail(tmpEmail);
                             perusahaan.getValidasi();
+                            qd.setPerusahaan(perusahaan);
                             perusahaanValid = true;
                         } catch (ValidatorException e) {
                             System.out.println(e.getMessage());
@@ -183,7 +185,7 @@ public class KuisionerUDPK {
                         qd.setStatusUsaha(tmpStatusUsaha);
                         if(qd.getStatusUsaha().equals("1") || qd.getStatusUsaha().equals("2")) {
                             String tmpKualifikasiGrade;    
-                            System.out.println("Kualifikasi Perusahaan/Usaha (Gred)           :");
+                            System.out.println("\n\nKualifikasi Perusahaan/Usaha (Gred)           :");
                             System.out.println("1 - Gred-1");                    
                             System.out.println("2 - Gred-2");
                             System.out.println("3 - Gred-3");
@@ -223,7 +225,7 @@ public class KuisionerUDPK {
                             System.out.println("3 - Konstruksi Khusus");
                             System.out.print("Pilih : ");
                             tmpBidangPekerjaan = in.nextLine();
-                            qd.setGred(tmpBidangPekerjaan);
+                            qd.setBidangPekerjaanUtama(tmpBidangPekerjaan);
 
                             String tmpTempatUsaha;
                             System.out.println("\n\nTempat Usaha      :");
@@ -233,22 +235,26 @@ public class KuisionerUDPK {
                             System.out.println("4 - Lainnya");
                             System.out.print("Pilih : ");
                             tmpTempatUsaha = in.nextLine();
-                            qd.setGred(tmpTempatUsaha);
-                            if(qd.getGred().equals("4")) {
+                            qd.setTempatUsaha(tmpTempatUsaha);
+                            if(qd.getTempatUsaha().equals("4")) {
                                 System.out.print("Isi nama tempat usaha yang dimaksud : ");
                                 tmpTempatUsaha = in.nextLine();
+                                qd.setTempatUsaha(tmpTempatUsaha);
                             }
 
                             System.out.println();
 
                             BanyakPekerja pekerja = new BanyakPekerja();
-                            int tmpPekerjaLaki;
-                            int tmpPekerjaPerempuan;
+                            String tmpPekerjaLaki;
+                            String tmpPekerjaPerempuan;
                             try {
                                 System.out.println("\n\nBanyak Pekerja Laki-Laki : ");
-                                tmpPekerjaLaki = in.nextInt();
+                                tmpPekerjaLaki = in.nextLine();
                                 System.out.println("Banyak Pekerja Perempuan : ");
-                                tmpPekerjaLaki = in.nextInt();   
+                                tmpPekerjaPerempuan = in.nextLine();
+                                pekerja.setJmlPekerjaLaki(Integer.parseInt(tmpPekerjaLaki));
+                                pekerja.setJmlPekerjaPerempuan(Integer.parseInt(tmpPekerjaPerempuan));
+                                qd.setBanyakPekerjaTetap(pekerja);
                             } catch(Exception e) {
                                 System.out.println("Data banyak pekerja tidak valid");
                                 throw new ValidatorException("Ada yang ga beres nih :(");
@@ -256,42 +262,49 @@ public class KuisionerUDPK {
                         }
 
                         System.out.println("\033[34m=============Informasi Petugas=============");
-                        Person contactPerson = new ContactPerson();
-                        Person pencacah = new Pencacah();
-                        Person pengawas = new Pengawas();
+                        ContactPerson contactPerson = new ContactPerson();
+                        Pencacah pencacah = new Pencacah();
+                        Pengawas pengawas = new Pengawas();
+                        
                         String tmp;
                         System.out.println("\n===Contact Person===");
-                        System.out.println("Nama : ");
+                        System.out.print("Nama : ");
                         tmp = in.nextLine();
                         contactPerson.setNama(tmp);
-                        System.out.println("Jabatan");
+                        System.out.print("Jabatan : ");
                         tmp = in.nextLine();
-                        contactPerson.setNama(tmp);
-                        System.out.println("Tanggal (dd-MM-yyyy): ");
-                        tmp = in.nextLine();
+                        contactPerson.setJabatan(tmp);
+                        System.out.print("Tanggal (dd-MM-yyyy): ");
+                        tmp = in.nextLine(); 
                         contactPerson.setTanggal(tmp);
+                        contactPerson.validasi.validate();
+                        qd.setContactPerson(contactPerson);
 
                         System.out.println("\n\n===Pencacah===");
-                        System.out.println("Nama : ");
+                        System.out.print("Nama : ");
                         tmp = in.nextLine();
                         pencacah.setNama(tmp);
-                        System.out.println("Jabatan");
+                        System.out.print("Jabatan : ");
                         tmp = in.nextLine();
-                        pencacah.setNama(tmp);
-                        System.out.println("Tanggal (dd-MM-yyyy): ");
+                        pencacah.setJabatan(tmp);
+                        System.out.print("Tanggal (dd-MM-yyyy): ");
                         tmp = in.nextLine();
                         pencacah.setTanggal(tmp);
+                        pencacah.validasi.validate();
+                        qd.setPencacah(pencacah);
 
                         System.out.println("\n\n===Pengawas===");
-                        System.out.println("Nama : ");
+                        System.out.print("Nama : ");
                         tmp = in.nextLine();
                         pengawas.setNama(tmp);
-                        System.out.println("Jabatan");
+                        System.out.print("Jabatan : ");
                         tmp = in.nextLine();
-                        pengawas.setNama(tmp);
-                        System.out.println("Tanggal (dd-MM-yyyy): ");
+                        pengawas.setJabatan(tmp);
+                        System.out.print("Tanggal (dd-MM-yyyy): ");
                         tmp = in.nextLine();
                         pengawas.setTanggal(tmp);
+                        pengawas.validasi.validate();
+                        qd.setPengawas(pengawas);
 
                         System.out.println("\n\n");
 
@@ -299,7 +312,6 @@ public class KuisionerUDPK {
                         System.out.println("Isi Catatan : ");
                         tmp = in.nextLine();
                         qd.setCatatan(tmp);
-
 
                         qd.validasi.validate();
 
@@ -312,11 +324,11 @@ public class KuisionerUDPK {
                     break;
                 case "2" : 
                     if (sheets.isEmpty()) {
-                        System.out.println("Tidak ada data kuesioner yang tersimpan.");
+                        System.out.println("\nTidak ada data kuesioner yang tersimpan.");
                     } else {
                         int counter = 0;
                         for (QuestionaireData qds : sheets) {
-                            System.out.println("Kuesioner No."+ ++counter);
+                            System.out.println("\nKuesioner No."+ ++counter);
                             qds.validasi.print();
                         }
                     }

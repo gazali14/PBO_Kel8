@@ -37,8 +37,8 @@ public class ValidatorQuestionaireData implements Validator {
             }
 
             // Validasi untuk atribut pekerjaan utama
-            if (!isValidString(questionaireData.getPekerjaanUtama()) || !questionaireData.getPekerjaanUtama().matches("[a-zA-Z]+")) {
-                throw new ValidatorException("Pekerjaan utama tidak boleh kosong");
+            if (!isValidString(questionaireData.getPekerjaanUtama()) || !questionaireData.getPekerjaanUtama().matches("[a-zA-Z ]+")) {
+                throw new ValidatorException("Pekerjaan utama tidak boleh kosong atau mengandung angka");
             }
 
             // Validasi untuk atribut bidang pekerjaan utama
@@ -52,7 +52,7 @@ public class ValidatorQuestionaireData implements Validator {
             }
 
             // Validasi untuk atribut banyak pekerja tetap
-            if (!(questionaireData.getBanyakPekerjaTetap().getTotal() <= 0)){
+            if (!(questionaireData.getBanyakPekerjaTetap().getTotal() > 0)){
                 throw new ValidatorException("Banyak pekerja tetap harus lebih besar dari 0");
             }
 
@@ -93,15 +93,43 @@ public class ValidatorQuestionaireData implements Validator {
     @Override
     public void print() {
         // Mencetak informasi QuestionaireData
-        System.out.println("Status Usaha: " + questionaireData.getStatusUsaha());
+        System.out.println("Perusahaan : " + questionaireData.getPerusahaan().getNamaPerusahaan());
+        System.out.print("Status Usaha: ");
+        switch(questionaireData.getStatusUsaha()) {
+            case "1": System.out.println("Aktif Lama"); break;
+            case "2": System.out.println("Aktif Baru"); break;
+            case "3": System.out.println("Tutup"); break;
+            case "4": System.out.println("Tidak Ditemukan"); break;
+            case "5": System.out.println("Bukan Konstruksi"); break;
+        }
         if (questionaireData.getStatusUsaha().equals("1") || questionaireData.getStatusUsaha().equals("2"))
         {
             System.out.println("Gred: " + questionaireData.getGred());
-            System.out.println("Badan Usaha: " + questionaireData.getBadanUsaha());
+            System.out.print("Badan Hukum/Badan Usaha: ");
+            switch(questionaireData.getBadanUsaha()) {
+                case "1": System.out.println("PT. Persero"); break;
+                case "2": System.out.println("PT"); break;
+                case "3": System.out.println("CV"); break;
+                case "4": System.out.println("Firma"); break;
+                case "5": System.out.println("Koperasi"); break;
+                case "6": System.out.println("Perorangan"); break;
+                case "7": System.out.println("Lainnya"); break;
+            }
             System.out.println("Pekerjaan Utama: " + questionaireData.getPekerjaanUtama());
-            System.out.println("Bidang Pekerjaan Utama: " + questionaireData.getBidangPekerjaanUtama());
-            System.out.println("Tempat Usaha: " + questionaireData.getTempatUsaha());
-            System.out.println("Banyak Pekerja Tetap: " + questionaireData.getBanyakPekerjaTetap());
+            System.out.print("Bidang Pekerjaan Utama: ");
+            switch(questionaireData.getBidangPekerjaanUtama()) {
+                case "1": System.out.println("Konstruksi Gedung"); break;
+                case "2": System.out.println("Konstruksi Sipil"); break;
+                case "3": System.out.println("Konstruksi Khusus"); break;
+            }
+            System.out.print("Tempat Usaha: ");
+            switch(questionaireData.getTempatUsaha()) {
+                case "1": System.out.println("Kantor"); break;
+                case "2": System.out.println("Rumah Tinggal"); break;
+                case "3": System.out.println("Rukan"); break;
+                default : System.out.println("Lainnya : " + questionaireData.getTempatUsaha()); break;
+            }
+            System.out.println("Banyak Pekerja Tetap: " + questionaireData.getBanyakPekerjaTetap().getTotal());
             System.out.println("Contact Person: " + questionaireData.getContactPerson());
             System.out.println("Pencacah: " + questionaireData.getPencacah());
             System.out.println("Pengawas: " + questionaireData.getPengawas());

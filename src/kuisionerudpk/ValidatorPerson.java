@@ -19,12 +19,12 @@ public class ValidatorPerson implements Validator {
     public boolean validate() throws ValidatorException {
         // Lakukan validasi untuk semua atribut Person
         // Validasi untuk nama
-        if (!isValidString(person.getNama())|| !person.getNama().matches("[a-zA-Z]+")) {
+        if (!isValidString(person.getNama()) || !person.getNama().matches("[a-zA-Z ]+")) {
             throw new ValidatorException("Nama tidak boleh kosong");
         }
 
         // Validasi untuk jabatan
-        if (!isValidString(person.getJabatan())|| !person.getJabatan().matches("[a-zA-Z]+")) {
+        if (!isValidString(person.getJabatan())|| !person.getJabatan().matches("[a-zA-Z ]+")) {
             throw new ValidatorException("Jabatan tidak boleh kosong");
         }
 
