@@ -75,7 +75,7 @@ Dalam pembuatan aplikasi validator untuk formulir Updating Direktori Perusahaan/
 ##### 11. Kode Kab/Kota
   - Kode Kab/Kota harus berupa angka, bukan huruf atau simbol apapun.
   - Kode Kab/Kota tediri atas 2 digit
-  - Kode Kab/Kota harus diawali 0 atau 7. Dengan keterangan 0 merupakan kabupaten dan 7 merupakan kota
+  - Kode Kab/Kota harus diawali 0,1,2 atau 7. Dengan keterangan 0,1,2 merupakan kabupaten dan 7 merupakan kota
   - Kode Kab/Kota diakhiri 1-9
   - Kode Kab/Kota tidak boleh kosong
 
