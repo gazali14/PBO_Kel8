@@ -65,9 +65,9 @@ public class ValidatorPerusahaan implements Validator {
         }
         
         // Validasi untuk kode provinsi
-        if (!isValidString(perusahaan.getKodeProv()) || !perusahaan.getKodeProv().matches("[123456789][0-9]*")
-                || !(perusahaan.getKodeProv().length()==2) || !(Integer.parseInt(perusahaan.getKodeProv()) <= 38)) {
-            throw new ValidatorException("Kode provinsi terdiri dari dua digit 11-38");
+        if (!isValidString(perusahaan.getKodeProv()) || !perusahaan.getKodeProv().matches("[123456789][1-9]*")
+                || !(perusahaan.getKodeProv().length()==2)) {
+            throw new ValidatorException("Kode provinsi terdiri dari dua digit tanpa angka 0");
         }
         
         // Validasi untuk kabupaten
@@ -76,9 +76,9 @@ public class ValidatorPerusahaan implements Validator {
         }
         
         // Validasi untuk kode kabupaten
-        if (!isValidString(perusahaan.getKodeKab()) || !perusahaan.getKodeKab().matches("[123456789][0-9]*") 
+        if (!isValidString(perusahaan.getKodeKab()) || !perusahaan.getKodeKab().matches("[0127][0-9]*") 
                 || !(perusahaan.getKodeKab().length()==2)) {
-            throw new ValidatorException("Kode kabupaten terdiri dari dua digit");
+            throw new ValidatorException("Kode kabupaten terdiri dari dua digit diawali angka 0, 1, 2, atau 7");
         }
         
         // Validasi untuk kecamatan
