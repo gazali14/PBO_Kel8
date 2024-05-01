@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package kuisionerudpk;
 
 /**
  *
- * @author LENOVO
+ * @author Kelompok 8
+    Briel Sevtriobragi Sihaloho (222212539)
+    Dewi Nurihandayani (222212564)
+    Fickry Atmayoga Wienaldi (222212610)
+    La Ode Muhammad Gazali (222212696)
+ * 
  */
+
 public class Field<E>{
     private E e;
 
