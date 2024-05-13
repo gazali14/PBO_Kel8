@@ -28,9 +28,11 @@ public class Perusahaan {
     private String kodeDes;
     private String email;
     public Validator validasi;
+    public int validationFlag;
 
     public Perusahaan() {
         validasi = new ValidatorPerusahaan(this);
+        validationFlag = 0;
     }
 
     public String getNamaPerusahaan() {

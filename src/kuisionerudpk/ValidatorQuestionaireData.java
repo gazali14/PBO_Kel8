@@ -52,32 +52,14 @@ public class ValidatorQuestionaireData implements Validator {
             if (!(questionaireData.getTempatUsaha().matches("[1234]"))) {
                 throw new ValidatorException("Tempat usaha harus antara 1-4");
             }
-
+            
             // Validasi untuk atribut banyak pekerja tetap
-            if (!(questionaireData.getBanyakPekerjaTetap().getTotal() > 0)){
-                throw new ValidatorException("Banyak pekerja tetap harus lebih besar dari 0");
-            }
-
-            // Validasi untuk atribut contact person
-            if (questionaireData.getContactPerson() == null) {
-                throw new ValidatorException("Contact person tidak boleh kosong");
-            }
-
-            // Validasi untuk atribut pencacah
-            if (questionaireData.getPencacah() == null) {
-                throw new ValidatorException("Pencacah tidak boleh kosong");
-            }
-
-            // Validasi untuk atribut pengawas
-            if (questionaireData.getPengawas() == null) {
-                throw new ValidatorException("Pengawas tidak boleh kosong");
+            if(questionaireData.validationFlag == 1)
+                if (!(questionaireData.getBanyakPekerjaTetap().getTotal() > 0)){
+                    throw new ValidatorException("Banyak pekerja tetap harus lebih besar dari 0");
+                }
         }
-
-        // Validasi untuk atribut catatan
-
         // Jika semua validasi berhasil, kembalikan true
-        }
-
         return true;
     }
 

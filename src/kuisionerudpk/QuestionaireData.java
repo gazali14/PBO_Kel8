@@ -25,6 +25,7 @@ public class QuestionaireData {
     private Field<Pengawas> pengawas;
     private Field<String> catatan;
     public Validator validasi;
+    public int validationFlag;
 
     public QuestionaireData() {
         validasi = new ValidatorQuestionaireData(this);
@@ -147,8 +148,8 @@ public class QuestionaireData {
         this.catatan.setE(catatan);
     }
 
-    public Validator getValidasi() {
-        return validasi;
+    public boolean getValidasi() throws ValidatorException {
+        return validasi.validate();
     }
 
     public void setValidasi(Validator validasi) {

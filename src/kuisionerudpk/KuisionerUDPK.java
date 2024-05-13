@@ -42,34 +42,35 @@ public class KuisionerUDPK {
                 case "1" :
                     QuestionaireData qd = new QuestionaireData(); //Pembuatan lembar kuesioner
                     boolean kipValid = false;
-                    boolean perusahaanValid = false;
 
                     /*
                         Pengisian KIP
                     */
                     KIP kip = new KIP();
-                    try {
-                        System.out.println("\n\033[34m==========Bagian KIP==========\033[0m");
-                        String tmpKodeKIP;
+                    while (!kipValid) {
+                        try {
+                            System.out.println("\n\033[34m==========Bagian KIP==========\033[0m");
+                            String tmpKodeKIP;
 
-                        System.out.print("Kode KIP   (Berisi 9 Angka)     : ");
-                        tmpKodeKIP = in.nextLine();
-                        kip.setKodeKIP(tmpKodeKIP);
-                        kip.getValidasi();
-                        qd.setKip(kip);
-                        kipValid = true;
-                    } catch (ValidatorException e) {
-                        System.out.println(e.getMessage());
+                            System.out.print("Kode KIP   (Berisi 9 Angka)     : ");
+                            tmpKodeKIP = in.nextLine();
+                            kip.setKodeKIP(tmpKodeKIP);
+                            kip.getValidasi();
+                            qd.setKip(kip);
+                            kipValid = true;
+                        } catch (ValidatorException e) {
+                            System.out.println(e.getMessage());
+                            System.out.println("Ulangi Pengisian KIP...\n");
+                        }
                     }
-
 
                     /*
 
                         Pengisian Keterangan Umum Perusahaan
 
                     */
-                    if(kipValid) {
-                        Perusahaan perusahaan = new Perusahaan();
+                    Perusahaan perusahaan = new Perusahaan();
+                    while(perusahaan.validationFlag == 0) {
                         try {
                             System.out.println("\n\033[34m==========Keterangan Umum Perushaan==========");
                             String tmpNamaPerusahaan;
@@ -79,15 +80,8 @@ public class KuisionerUDPK {
                             String tmpTelepon;
                             String tmpFax;
                             String tmpNoHP;
-                            String tmpProv;
-                            String tmpKodeProv;
-                            String tmpKab;
-                            String tmpKodeKab;
-                            String tmpKec;
-                            String tmpKodeKec;
-                            String tmpDes;
-                            String tmpKodeDes;
-                            String tmpEmail;
+                            
+
 
                             System.out.print("Nama Perusahaan                        : ");
                             tmpNamaPerusahaan = in.nextLine();
@@ -110,6 +104,36 @@ public class KuisionerUDPK {
                             System.out.print("No HP       (Berisi 11-13 Digit)       : ");
                             tmpNoHP = in.nextLine();
 
+
+
+                            perusahaan.setNamaPerusahaan(tmpNamaPerusahaan);
+                            perusahaan.setNamaPengusaha(tmpNamaPengusaha);
+                            perusahaan.setAlamat(tmpAlamat);
+                            perusahaan.setKodePos(tmpKodePos);
+                            perusahaan.setTelepon(tmpTelepon);
+                            perusahaan.setFax(tmpFax);
+                            perusahaan.setNoHP(tmpNoHP);
+
+                            perusahaan.getValidasi();
+                            qd.setPerusahaan(perusahaan);
+                        } catch (ValidatorException e) {
+                            System.out.println(e.getMessage());
+                            System.out.println("Silahkan isi kembali...");
+                        }
+                    }
+                        
+                    while(perusahaan.validationFlag == 1) {
+                        try {
+                            String tmpProv;
+                            String tmpKodeProv;
+                            String tmpKab;
+                            String tmpKodeKab;
+                            String tmpKec;
+                            String tmpKodeKec;
+                            String tmpDes;
+                            String tmpKodeDes;
+                            String tmpEmail;
+                            
                             System.out.print("Provinsi                               : ");
                             tmpProv = in.nextLine();
 
@@ -136,14 +160,7 @@ public class KuisionerUDPK {
 
                             System.out.print("Email        (Mengandung '@' dan '.')  : ");
                             tmpEmail = in.nextLine();
-
-                            perusahaan.setNamaPerusahaan(tmpNamaPerusahaan);
-                            perusahaan.setNamaPengusaha(tmpNamaPengusaha);
-                            perusahaan.setAlamat(tmpAlamat);
-                            perusahaan.setKodePos(tmpKodePos);
-                            perusahaan.setTelepon(tmpTelepon);
-                            perusahaan.setFax(tmpFax);
-                            perusahaan.setNoHP(tmpNoHP);
+                            
                             perusahaan.setProvinsi(tmpProv);
                             perusahaan.setKodeProv(tmpKodeProv);
                             perusahaan.setKabupaten(tmpKab);
@@ -154,10 +171,10 @@ public class KuisionerUDPK {
                             perusahaan.setKodeDes(tmpKodeDes);
                             perusahaan.setEmail(tmpEmail);
                             perusahaan.getValidasi();
-                            qd.setPerusahaan(perusahaan);
-                            perusahaanValid = true;
+                            perusahaan.validationFlag++;
                         } catch (ValidatorException e) {
                             System.out.println(e.getMessage());
+                            System.out.println("Silahkan isi kembali...");
                         }
                     }
 
@@ -167,25 +184,23 @@ public class KuisionerUDPK {
                         Kuesioner Utama
 
                     */
-                    if (perusahaanValid)
-                    try {
-                        System.out.println("\n\033[34m==========Kuesioner Utama==========\033[0m");
-                        String tmpStatusUsaha;
+                    if (perusahaan.validationFlag == 2) {
+                        while(qd.validationFlag == 0) {
+                        try{
+                            System.out.println("\n\033[34m==========Kuesioner Utama==========\033[0m");
+                            String tmpStatusUsaha;
+                            
+                            System.out.println("Status Perusahaan/Usaha Saat Dikunjungi       :");
+                            System.out.println("1 - Aktif Lama");                    
+                            System.out.println("2 - Aktif Baru");
+                            System.out.println("3 - Tutup");
+                            System.out.println("4 - Tidak Ditemukan");
+                            System.out.println("5 - Bukan Konstruksi");
+                            System.out.print("Pilih : ");
+                            tmpStatusUsaha = in.nextLine();
+                            qd.setStatusUsaha(tmpStatusUsaha);
 
-                        System.out.println("Status Perusahaan/Usaha Saat Dikunjungi       :");
-                        System.out.println("1 - Aktif Lama");                    
-                        System.out.println("2 - Aktif Baru");
-                        System.out.println("3 - Tutup");
-                        System.out.println("4 - Tidak Ditemukan");
-                        System.out.println("5 - Bukan Konstruksi");
-                        System.out.print("Pilih : ");
-
-                        tmpStatusUsaha = in.nextLine();
-
-
-
-                        qd.setStatusUsaha(tmpStatusUsaha);
-                        if(qd.getStatusUsaha().equals("1") || qd.getStatusUsaha().equals("2")) {
+                            if(qd.getStatusUsaha().equals("1") || qd.getStatusUsaha().equals("2")) {
                             String tmpKualifikasiGrade;    
                             System.out.println("\n\nKualifikasi Perusahaan/Usaha (Gred)           :");
                             System.out.println("1 - Gred-1");                    
@@ -243,9 +258,17 @@ public class KuisionerUDPK {
                                 tmpTempatUsaha = in.nextLine();
                                 qd.setTempatUsaha(tmpTempatUsaha);
                             }
-
+                            }
+                            qd.getValidasi();
+                            qd.validationFlag++;
+                        } catch (ValidatorException e) {
+                            System.out.println(e.getMessage());
+                            System.out.println("Silahkan isi kembali");
+                        }
+                        }
+                            
+                        while (qd.validationFlag == 1){
                             System.out.println();
-
                             BanyakPekerja pekerja = new BanyakPekerja();
                             String tmpPekerjaLaki;
                             String tmpPekerjaPerempuan;
@@ -257,73 +280,97 @@ public class KuisionerUDPK {
                                 pekerja.setJmlPekerjaLaki(Integer.parseInt(tmpPekerjaLaki));
                                 pekerja.setJmlPekerjaPerempuan(Integer.parseInt(tmpPekerjaPerempuan));
                                 qd.setBanyakPekerjaTetap(pekerja);
-                            } catch(Exception e) {
-                                System.out.println("Data banyak pekerja tidak valid");
-                                throw new ValidatorException("Ada yang ga beres nih :(");
+                                qd.getValidasi();
+                                qd.validationFlag++;
+                            } catch (Exception e) {
+                                System.out.println("Data banyak pekerja tidak valid\n Silahkan isi kembali");
+                            }    
+                        }
+
+                        //CP Pencacah Pengawas
+                        boolean cpValid = false;
+                        String tmp;
+                        while (!cpValid) {
+                            try {      
+                                System.out.println("\033[34m=============Informasi Petugas=============");
+                                ContactPerson contactPerson = new ContactPerson();
+
+                                System.out.println("\n===Contact Person===");
+                                System.out.print("Nama : ");
+                                tmp = in.nextLine();
+                                contactPerson.setNama(tmp);
+                                System.out.print("Jabatan : ");
+                                tmp = in.nextLine();
+                                contactPerson.setJabatan(tmp);
+                                System.out.print("Tanggal (dd-MM-yyyy): ");
+                                tmp = in.nextLine(); 
+                                contactPerson.setTanggal(tmp);
+                                contactPerson.validasi.validate();
+                                qd.setContactPerson(contactPerson);
+                                cpValid = true;
+                            } catch (ValidatorException e) {
+                                System.out.println(e.getMessage());
+                                System.out.println("Silahkan isi kembali...");
                             }
                         }
 
-                        System.out.println("\033[34m=============Informasi Petugas=============");
-                        ContactPerson contactPerson = new ContactPerson();
-                        Pencacah pencacah = new Pencacah();
-                        Pengawas pengawas = new Pengawas();
+                        boolean pencacahValid = false;
+                        while(!pencacahValid) {
+                            try { 
+                                Pencacah pencacah = new Pencacah();
+                                System.out.println("\n\n===Pencacah===");
+                                System.out.print("Nama : ");
+                                tmp = in.nextLine();
+                                pencacah.setNama(tmp);
+                                System.out.print("Jabatan : ");
+                                tmp = in.nextLine();
+                                pencacah.setJabatan(tmp);
+                                System.out.print("Tanggal (dd-MM-yyyy): ");
+                                tmp = in.nextLine();
+                                pencacah.setTanggal(tmp);
+                                pencacah.validasi.validate();
+                                qd.setPencacah(pencacah);
+                                pencacahValid = true;
+                            } catch (ValidatorException e) {
+                                System.out.println(e.getMessage());
+                                System.out.println("Silahkan isi kembali...");
+                            }
+                        }
+
+                        boolean pengawasValid = false;
+                        while(!pengawasValid) {
+                            try {
+                                Pengawas pengawas = new Pengawas();
+                                System.out.println("\n\n===Pengawas===");
+                                System.out.print("Nama : ");
+                                tmp = in.nextLine();
+                                pengawas.setNama(tmp);
+                                System.out.print("Jabatan : ");
+                                tmp = in.nextLine();
+                                pengawas.setJabatan(tmp);
+                                System.out.print("Tanggal (dd-MM-yyyy): ");
+                                tmp = in.nextLine();
+                                pengawas.setTanggal(tmp);
+                                pengawas.validasi.validate();
+                                qd.setPengawas(pengawas);
+
+                                System.out.println("\n\n");
+
+                                System.out.println("\033[34m=============Catatan=============");
+                                System.out.println("Isi Catatan : ");
+                                tmp = in.nextLine();
+                                qd.setCatatan(tmp);
+                                pengawasValid = true;
+                            } catch (ValidatorException e) {
+                                System.out.println(e.getMessage());
+                                System.out.println("Silahkan isi kembali...");
+                            }
+                        }
                         
-                        String tmp;
-                        System.out.println("\n===Contact Person===");
-                        System.out.print("Nama : ");
-                        tmp = in.nextLine();
-                        contactPerson.setNama(tmp);
-                        System.out.print("Jabatan : ");
-                        tmp = in.nextLine();
-                        contactPerson.setJabatan(tmp);
-                        System.out.print("Tanggal (dd-MM-yyyy): ");
-                        tmp = in.nextLine(); 
-                        contactPerson.setTanggal(tmp);
-                        contactPerson.validasi.validate();
-                        qd.setContactPerson(contactPerson);
-
-                        System.out.println("\n\n===Pencacah===");
-                        System.out.print("Nama : ");
-                        tmp = in.nextLine();
-                        pencacah.setNama(tmp);
-                        System.out.print("Jabatan : ");
-                        tmp = in.nextLine();
-                        pencacah.setJabatan(tmp);
-                        System.out.print("Tanggal (dd-MM-yyyy): ");
-                        tmp = in.nextLine();
-                        pencacah.setTanggal(tmp);
-                        pencacah.validasi.validate();
-                        qd.setPencacah(pencacah);
-
-                        System.out.println("\n\n===Pengawas===");
-                        System.out.print("Nama : ");
-                        tmp = in.nextLine();
-                        pengawas.setNama(tmp);
-                        System.out.print("Jabatan : ");
-                        tmp = in.nextLine();
-                        pengawas.setJabatan(tmp);
-                        System.out.print("Tanggal (dd-MM-yyyy): ");
-                        tmp = in.nextLine();
-                        pengawas.setTanggal(tmp);
-                        pengawas.validasi.validate();
-                        qd.setPengawas(pengawas);
-
-                        System.out.println("\n\n");
-
-                        System.out.println("\033[34m=============Catatan=============");
-                        System.out.println("Isi Catatan : ");
-                        tmp = in.nextLine();
-                        qd.setCatatan(tmp);
-
-                        qd.validasi.validate();
-
                         sheets.add(qd);
-                    } catch (ValidatorException e) {
-                        System.out.println(e.getMessage());
-                        System.out.println("Ada yang ga beres nih :(");
                     }
-
                     break;
+                    
                 case "2" : 
                     if (sheets.isEmpty()) {
                         System.out.println("\nTidak ada data kuesioner yang tersimpan.");

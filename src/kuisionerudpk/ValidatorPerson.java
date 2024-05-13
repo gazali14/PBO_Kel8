@@ -22,12 +22,12 @@ public class ValidatorPerson implements Validator {
         // Lakukan validasi untuk semua atribut Person
         // Validasi untuk nama
         if (!isValidString(person.getNama()) || !person.getNama().matches("[a-zA-Z ]+")) {
-            throw new ValidatorException("Nama tidak boleh kosong");
+            throw new ValidatorException("Nama tidak boleh kosong dan hanya mengandung huruf");
         }
 
         // Validasi untuk jabatan
         if (!isValidString(person.getJabatan())|| !person.getJabatan().matches("[a-zA-Z ]+")) {
-            throw new ValidatorException("Jabatan tidak boleh kosong");
+            throw new ValidatorException("Jabatan tidak boleh kosong dan hanya mengandung huruf");
         }
 
         if (!isValidString(person.getStrDate()) || !person.getStrDate().matches("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(200[0-9]|201[0-9]|202[0-5])$")) {
