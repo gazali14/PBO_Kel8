@@ -114,12 +114,12 @@ public class ValidatorQuestionaireData implements Validator {
                 default : System.out.println("Lainnya : " + questionaireData.getTempatUsaha()); break;
             }
             System.out.println("Banyak Pekerja Tetap: " + questionaireData.getBanyakPekerjaTetap().getTotal());
-            System.out.println("Contact Person: " + questionaireData.getContactPerson());
-            System.out.println("Pencacah: " + questionaireData.getPencacah());
-            System.out.println("Pengawas: " + questionaireData.getPengawas());
-            System.out.println("Catatan: " + questionaireData.getCatatan());
-        // Cetak atribut lainnya sesuai kebutuhan
+
         }
+        System.out.println("Contact Person: " + questionaireData.getContactPerson());
+        System.out.println("Pencacah: " + questionaireData.getPencacah());
+        System.out.println("Pengawas: " + questionaireData.getPengawas());
+        System.out.println("Catatan: " + questionaireData.getCatatan());
     }
 
     @Override

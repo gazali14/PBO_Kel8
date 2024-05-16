@@ -266,7 +266,8 @@ public class KuisionerUDPK {
                             System.out.println("Silahkan isi kembali");
                         }
                         }
-                            
+                        
+                        if(qd.getStatusUsaha().equals("1") || qd.getStatusUsaha().equals("2"))
                         while (qd.validationFlag == 1){
                             System.out.println();
                             BanyakPekerja pekerja = new BanyakPekerja();
